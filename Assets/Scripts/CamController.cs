@@ -31,11 +31,16 @@ public class CamController : MonoBehaviour
         }
     }
 
-    public void GoToHeadView() {
-        
+    public void GoToHeadView()
+    {
+        iTween.MoveTo(gameObject, headView.position, .5f);
+        iTween.RotateTo(gameObject, headView.rotation.eulerAngles, .5f);
     }
 
     public void GoToBoardView() {
-
+        iTween.MoveTo(gameObject, boardView.position, .5f); 
+        iTween.RotateTo(gameObject, boardView.rotation.eulerAngles, .5f);
     }
+
+    
 }
