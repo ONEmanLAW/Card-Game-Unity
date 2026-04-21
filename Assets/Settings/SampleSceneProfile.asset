@@ -68,7 +68,7 @@ MonoBehaviour:
     m_Value: 3
   intensity:
     m_OverrideState: 1
-    m_Value: 0.298
+    m_Value: 0.2
   response:
     m_OverrideState: 0
     m_Value: 0.8
@@ -124,7 +124,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.365
+    m_Value: 0.15
   smoothness:
     m_OverrideState: 0
     m_Value: 0.2
@@ -210,7 +210,7 @@ MonoBehaviour:
     m_Value: 0
   quality:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 1
   intensity:
     m_OverrideState: 1
     m_Value: 0.6
@@ -250,19 +250,19 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.7227926
-          value: 0.65665233
-          inSlope: 0.91834056
-          outSlope: 0.91834056
+          time: 0.40451744
+          value: 0.3648069
+          inSlope: 0.8994829
+          outSlope: 0.8994829
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.90143734
-          value: 0.86266094
-          inSlope: 1.1480002
-          outSlope: 1.1480002
+          time: 0.74537987
+          value: 0.6351931
+          inSlope: 0.91834056
+          outSlope: 0.91834056
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -439,4 +439,4 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: 0.272
+    m_Value: 0.15
