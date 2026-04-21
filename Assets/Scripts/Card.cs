@@ -27,7 +27,7 @@ public class Card : MonoBehaviour
         iTween.MoveTo(gameObject, initialPos + transform.up / 20, .1f);
     }
 
-    private void onMouseExit() {
+    private void OnMouseExit() {
         if (selected) return;
 
         spriteRenderer.sortingOrder = 1;
