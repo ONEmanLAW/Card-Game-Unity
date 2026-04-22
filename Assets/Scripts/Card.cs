@@ -35,6 +35,9 @@ public class Card : MonoBehaviour
     }
 
     private void OnMouseUp() {
-        // clic
+        if (selected) return;
+        selected = true;
+        CamController.Instance.GoToBoardView();
+        GameManager.Instance.selectedCard = gameObject;
     }
 }
