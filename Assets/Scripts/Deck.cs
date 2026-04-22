@@ -9,7 +9,7 @@ public class Deck : MonoBehaviour
     int cardsInDeck = 40;
 
     private static Deck instance = null;
-    private static Deck Instance => instance;
+    public static Deck Instance => instance;
 
     private void Awake() {
         if (instance != null && instance != this) {
@@ -18,9 +18,12 @@ public class Deck : MonoBehaviour
         } else {
             instance = this;
             DontDestroyOnLoad(gameObject);
-
-            InitGame();
         }
+    }
+
+    private void Start()
+    {
+        InitGame();
     }
 
     private void InitGame() {
@@ -33,6 +36,8 @@ public class Deck : MonoBehaviour
         for(int i = 0; i < 4; i++) {
             initialCards[i] = playerDeck.Dequeue();
         }
+
+        Hand.Instance.InitializeHand(initialCards);
 
     }
 
