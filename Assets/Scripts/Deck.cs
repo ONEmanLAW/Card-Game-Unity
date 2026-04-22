@@ -41,6 +41,17 @@ public class Deck : MonoBehaviour
 
     }
 
+    // a mettre en place
+    private void ResetHand() {
+        GameObject[] initialCards = new GameObject[4];
+
+        for(int i = 0; i < 4; i++) {
+            initialCards[i] = playerDeck.Dequeue();
+        }
+
+        Hand.Instance.InitializeHand(initialCards);
+    }
+
     public GameObject GetCardFromDeck() {
         return playerDeck.Dequeue();
     }
