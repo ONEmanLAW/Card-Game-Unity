@@ -9,32 +9,34 @@ public class Card : MonoBehaviour
     [HideInInspector] public int handPosId;
     public int boardPosId;
 
-    private void Awake() {
+    private void Awake()
+    {
         cardObject = Resources.Load(gameObject.name.Replace("(Clone)", "")) as CardScriptableObjectScript;
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnMouseEnter() {
+    private void OnMouseEnter()
+    {
+        // Survol
         if (initialPos == Vector3.zero)
-        {
             initialPos = transform.position;
-        }
         if (selected) return;
 
         spriteRenderer.sortingOrder = 5;
-
-        // Déplace la carte vers le haut
         iTween.MoveTo(gameObject, initialPos + transform.up / 20, .1f);
     }
 
-    private void OnMouseExit() {
+    private void OnMouseExit()
+    {
+        // Stop survol
         if (selected) return;
 
         spriteRenderer.sortingOrder = 1;
         iTween.MoveTo(gameObject, initialPos, .1f);
     }
 
-    private void OnMouseUp() {
+    private void OnMouseUp()
+    {
         if (selected) return;
         selected = true;
         CamController.Instance.GoToBoardView();

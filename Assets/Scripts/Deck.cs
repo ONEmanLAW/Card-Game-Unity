@@ -18,13 +18,15 @@ public class Deck : MonoBehaviour
         } else {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            InitGame();
         }
     }
 
-    private void Start()
-    {
-        InitGame();
-    }
+    //private void Start()
+    //{
+    //    InitGame();
+    //}
 
     private void InitGame() {
         for (int i = 0; i < cardsInDeck; i++) {

@@ -105,6 +105,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 583118f82cc56354785193696d21821f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Card
+  cardObject: {fileID: 11400000, guid: 34a5a2bd8a3204344a8e191ec4720f9f, type: 2}
+  handPosId: 0
+  boardPosId: 0
 --- !u!65 &8986341449026423780
 BoxCollider:
   m_ObjectHideFlags: 0

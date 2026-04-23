@@ -21,37 +21,59 @@ public class BoardSlot : MonoBehaviour
         spriteRenderer.color = normalColor;
     }
 
-    private void OnMouseUp() {
+    private void OnMouseUp()
+    {
+        if (GameManager.Instance == null) return;
         if (GameManager.Instance.selectedCard == null) return;
 
         GameObject card = GameManager.Instance.selectedCard;
 
-        if (card.GetComponent<Card>().cardObject.cost == 0) {
-            card = PlayerCardOnSlot(card);
-        } else if (card.GetComponent<Card>().cardObject.cost == 1) {
+        Card cardComponent = card.GetComponent<Card>();
+        if (cardComponent == null)
+        {
+            Debug.LogError("L'objet sélectionné n'a pas de composant Card.", card);
+            return;
+        }
+
+        if (cardComponent.cardObject == null)
+        {
+            Debug.LogError("cardObject est null sur cette carte.", card);
+            return;
+        }
+
+        if (cardComponent.cardObject.cost == 0)
+        {
+            if (Board.Instance.playerCards[slotId] != null) return;
+            PlayCardOnSlot(card);
+        }
+        else if (cardComponent.cardObject.cost == 1)
+        {
             if (Board.Instance.playerCards[slotId] == null) return;
 
-            // 1 Sacrifice
             Destroy(Board.Instance.playerCards[slotId]);
             Board.Instance.playerCards[slotId] = null;
-            card = PlayerCardOnSlot(card);
-        } else {
+            PlayCardOnSlot(card);
+        }
+        else
+        {
             if (Board.Instance.playerCards[slotId] == null) return;
 
-            if(GameManager.Instance.sacrifices == 1) {
-                Destroy(Board.Instance.playerCards[slotId]);
-                Board.Instance.playerCards[slotId] = null;
+            Destroy(Board.Instance.playerCards[slotId]);
+            Board.Instance.playerCards[slotId] = null;
+
+            if (GameManager.Instance.sacrifices == 1)
+            {
                 GameManager.Instance.sacrifices = 0;
-                card = PlayerCardOnSlot(card);
-            } else {
-                Destroy(Board.Instance.playerCards[slotId]);
-                Board.Instance.playerCards[slotId] = null;
+                PlayCardOnSlot(card);
+            }
+            else
+            {
                 GameManager.Instance.sacrifices = 1;
             }
         }
     }
 
-    private GameObject PlayerCardOnSlot(GameObject card) {
+    private GameObject PlayCardOnSlot(GameObject card) {
         hasCard = true;
         iTween.MoveTo(card, transform.position, .5f);
         iTween.RotateTo(card, transform.rotation.eulerAngles, .25f);
