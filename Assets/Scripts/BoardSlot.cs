@@ -9,80 +9,104 @@ public class BoardSlot : MonoBehaviour
     [SerializeField] int slotId;
     bool hasCard = false;
 
-    private void Awake() {
+    private void Awake()
+    {
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnMouseEnter() {
+    private void OnMouseEnter()
+    {
+        if (GameManager.Instance == null) return;
         if (GameManager.Instance.selectedCard == null) return;
+
         spriteRenderer.color = hoverColor;
     }
-    private void OnMouseExit() {
+
+    private void OnMouseExit()
+    {
         spriteRenderer.color = normalColor;
     }
 
     private void OnMouseUp()
     {
         if (GameManager.Instance == null) return;
+        if (Board.Instance == null) return;
         if (GameManager.Instance.selectedCard == null) return;
 
-        GameObject card = GameManager.Instance.selectedCard;
+        GameObject selectedCard = GameManager.Instance.selectedCard;
+        Card selectedCardComponent = selectedCard.GetComponent<Card>();
 
-        Card cardComponent = card.GetComponent<Card>();
-        if (cardComponent == null)
+        if (selectedCardComponent == null)
         {
-            Debug.LogError("L'objet sélectionné n'a pas de composant Card.", card);
+            Debug.LogError("L'objet sélectionné n'a pas de composant Card.", selectedCard);
             return;
         }
 
-        if (cardComponent.cardObject == null)
+        if (selectedCardComponent.cardObject == null)
         {
-            Debug.LogError("cardObject est null sur cette carte.", card);
+            Debug.LogError("cardObject est null sur cette carte.", selectedCard);
             return;
         }
 
-        if (cardComponent.cardObject.cost == 0)
-        {
-            if (Board.Instance.playerCards[slotId] != null) return;
-            PlayCardOnSlot(card);
-        }
-        else if (cardComponent.cardObject.cost == 1)
-        {
-            if (Board.Instance.playerCards[slotId] == null) return;
+        int cost = selectedCardComponent.cardObject.cost;
+        GameObject cardOnSlot = Board.Instance.playerCards[slotId];
 
-            Destroy(Board.Instance.playerCards[slotId]);
+        Debug.Log("Slot " + slotId + " | cost = " + cost + " | sacrifices = " + GameManager.Instance.sacrifices + " | cardOnSlot = " + cardOnSlot);
+
+        if (cost == 0)
+        {
+            if (cardOnSlot != null) return;
+            PlayCardOnSlot(selectedCard);
+            return;
+        }
+
+        if (GameManager.Instance.sacrifices < cost)
+        {
+            if (cardOnSlot == null) return;
+
+            cardOnSlot.SetActive(false);
+            Destroy(cardOnSlot);
             Board.Instance.playerCards[slotId] = null;
-            PlayCardOnSlot(card);
-        }
-        else
-        {
-            if (Board.Instance.playerCards[slotId] == null) return;
+            GameManager.Instance.sacrifices++;
 
-            Destroy(Board.Instance.playerCards[slotId]);
-            Board.Instance.playerCards[slotId] = null;
-
-            if (GameManager.Instance.sacrifices == 1)
-            {
-                GameManager.Instance.sacrifices = 0;
-                PlayCardOnSlot(card);
-            }
-            else
-            {
-                GameManager.Instance.sacrifices = 1;
-            }
+            Debug.Log("Sacrifices : " + GameManager.Instance.sacrifices + " / " + cost);
+            return;
         }
+
+        if (cardOnSlot != null) return;
+
+        GameManager.Instance.sacrifices = 0;
+        PlayCardOnSlot(selectedCard);
     }
 
-    private GameObject PlayCardOnSlot(GameObject card) {
+    private void PlayCardOnSlot(GameObject card)
+    {
         hasCard = true;
+
         iTween.MoveTo(card, transform.position, .5f);
         iTween.RotateTo(card, transform.rotation.eulerAngles, .25f);
-        card.GetComponent<SpriteRenderer>().sortingOrder = 1;
 
-        Hand.Instance.RemoveFromHand(card.GetComponent<Card>().handPosId);
+        SpriteRenderer cardRenderer = card.GetComponent<SpriteRenderer>();
+        if (cardRenderer != null)
+        {
+            cardRenderer.sortingOrder = 1;
+        }
+
+        Card cardComponent = card.GetComponent<Card>();
+        if (cardComponent != null)
+        {
+            Board.Instance.playerCards[slotId] = card;
+            cardComponent.boardPosId = slotId;
+            Hand.Instance.RemoveFromHand(cardComponent.handPosId);
+        }
+
+        Collider cardCollider = card.GetComponent<Collider>();
+        if (cardCollider != null)
+        {
+            cardCollider.enabled = false;
+        }
+
         GameManager.Instance.selectedCard = null;
-        card = null;
-        return card;
     }
 }
 

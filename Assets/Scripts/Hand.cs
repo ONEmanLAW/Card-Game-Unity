@@ -31,12 +31,16 @@ public class Hand : MonoBehaviour
 
     public void RemoveFromHand(int index)
     {
-        CamController.Instance.GoToHeadView();
         handCards[index] = Deck.Instance.GetCardFromDeck();
 
         GameObject card = Instantiate(handCards[index]);
         
         SetCardPosInHand(index, card);
+        Invoke("GoBackToHeadView", 1f);
+    }
+
+    public void GoBackToHeadView() {
+        CamController.Instance.GoToHeadView();
     }
 
     private void SetCardPosInHand(int index, GameObject card)

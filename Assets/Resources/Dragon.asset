@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 771b786f370e5174ebbf444760c15581, type: 3}
   m_Name: Dragon
   m_EditorClassIdentifier: Assembly-CSharp::CardScriptableObjectScript
-  name: Dragon
+  cardName: Dragon
   cost: 2
   atk: 3
   def: 3
