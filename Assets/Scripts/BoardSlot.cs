@@ -33,6 +33,8 @@ public class BoardSlot : MonoBehaviour
         if (Board.Instance == null) return;
         if (GameManager.Instance.selectedCard == null) return;
 
+        //AudioManager.Instance.PlaySFX(1); // TODO : ajouter un son de pose de carte
+
         GameObject selectedCard = GameManager.Instance.selectedCard;
         Card selectedCardComponent = selectedCard.GetComponent<Card>();
 

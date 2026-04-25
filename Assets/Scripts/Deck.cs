@@ -29,6 +29,10 @@ public class Deck : MonoBehaviour
     //}
 
     private void InitGame() {
+
+        // Max Exclusive donc 3 pour les voix
+        AudioManager.Instance.PlayRandomVoice(0, 3);
+
         for (int i = 0; i < cardsInDeck; i++) {
             playerDeck.Enqueue(cards[UnityEngine.Random.Range(0, cards.Length)]);
         }

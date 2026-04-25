@@ -15,8 +15,10 @@ public class Card : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private void OnMouseEnter()
-    {
+    private void OnMouseEnter() {
+
+        AudioManager.Instance.PlaySFX(0); // hoverCard
+
         // Survol
         if (initialPos == Vector3.zero)
             initialPos = transform.position;
@@ -26,8 +28,9 @@ public class Card : MonoBehaviour
         iTween.MoveTo(gameObject, initialPos + transform.up / 20, .1f);
     }
 
-    private void OnMouseExit()
-    {
+    private void OnMouseExit() {
+
+        AudioManager.Instance.PlaySFX(0); // hoverCard
         // Stop survol
         if (selected) return;
 
@@ -35,8 +38,9 @@ public class Card : MonoBehaviour
         iTween.MoveTo(gameObject, initialPos, .1f);
     }
 
-    private void OnMouseUp()
-    {
+    private void OnMouseUp() {
+
+        AudioManager.Instance.PlaySFX(0); // hoverCard
         if (selected) return;
         selected = true;
         CamController.Instance.GoToBoardView();
