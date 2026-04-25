@@ -46,13 +46,7 @@ public class Hand : MonoBehaviour
         handCards[index] = Deck.Instance.GetCardFromDeck();
 
         GameObject card = Instantiate(handCards[index], cardPos[index].position, cardPos[index].rotation);
-        Card cardComponent = card.GetComponent<Card>();
-
-        if (cardComponent != null)
-        {
-            cardComponent.handPosId = index;
-        }
-
+        card.GetComponent<Card>().handPosId = index;
         SetCardPosInHand(index, card);
         Invoke("GoBackToHeadView", 1f);
     }
