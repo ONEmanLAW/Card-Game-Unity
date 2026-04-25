@@ -5,6 +5,9 @@ public class ComputerAI : MonoBehaviour
     [SerializeField] GameObject[] cards;
     int[] tablePos = { 0, 1, 2, 3 };
     int turn = 1;
+    [SerializeField] bool forcePlayDragon = true;
+    [Range(0, 100)]
+    [SerializeField] int sacrificePercent = 50;
 
     private static ComputerAI instance = null;
     public static ComputerAI Instance => instance;
@@ -58,7 +61,7 @@ public class ComputerAI : MonoBehaviour
         int i = Random.Range(0, 1); // Dragonfly ou Squirrel
 
         // Jouer une carte forte
-        if (count >= 2 && i == 0) {
+        if (count >= 2 && (i == 0 || forcePlayDragon)) {
             int nbSacrifices = 0;
 
             foreach (var pos in tablePos) { 
@@ -89,7 +92,7 @@ public class ComputerAI : MonoBehaviour
                 }
                 else
                 {
-                    if (Random.Range(0, 100) >= 50)
+                    if (Random.Range(0, 100) >= sacrificePercent) // 50%
                     {
                         Destroy(Board.Instance.computerCards[pos]);
                         Board.Instance.computerCards[pos] = null;
