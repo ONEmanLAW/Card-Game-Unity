@@ -74,6 +74,11 @@ public class Bell : MonoBehaviour
             }
         }
 
+        GameManager.Instance.sacrifices = 0;
+        GameManager.Instance.nbActions = 0;
+        GameManager.Instance.selectedCard = null;
+        GameManager.Instance.sacrificeSummonUsedThisTurn = false;
+
         CamController.Instance.GoToHeadView();
     }
 

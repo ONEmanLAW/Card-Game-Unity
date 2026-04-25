@@ -41,6 +41,12 @@ public class Card : MonoBehaviour
     private void OnMouseUp() {
 
         if (GameManager.Instance.nbActions >= 2) return;
+
+        if (cardObject != null && cardObject.cost > 0 && GameManager.Instance.sacrificeSummonUsedThisTurn) {
+            Debug.Log("Carte avec sacrifice déjà jouée ce tour.");
+            return;
+        }
+
         AudioManager.Instance.PlaySFX(0); // hoverCard
         if (selected) return;
         selected = true;

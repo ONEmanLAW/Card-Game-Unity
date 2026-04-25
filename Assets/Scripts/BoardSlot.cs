@@ -54,6 +54,11 @@ public class BoardSlot : MonoBehaviour
         int cost = selectedCardComponent.cardObject.cost;
         GameObject cardOnSlot = Board.Instance.playerCards[slotId];
 
+        if (cost > 0 && GameManager.Instance.sacrificeSummonUsedThisTurn) {
+            Debug.Log("Vous avez déjà utilisé votre sacrifice de ce tour.");
+            return;
+        }
+
         Debug.Log("Slot " + slotId + " | cost = " + cost + " | sacrifices = " + GameManager.Instance.sacrifices + " | cardOnSlot = " + cardOnSlot);
 
         if (cost == 0)
@@ -79,6 +84,7 @@ public class BoardSlot : MonoBehaviour
         if (cardOnSlot != null) return;
 
         GameManager.Instance.sacrifices = 0;
+        GameManager.Instance.sacrificeSummonUsedThisTurn = true;
         PlayCardOnSlot(selectedCard);
     }
 
@@ -115,6 +121,4 @@ public class BoardSlot : MonoBehaviour
     }
 }
 
-// Joueur qui veut jouer une carte a 2 sacrifices le jeu ne va pas lui empecher
-// Ducoup joueur va ce retrouver bloquer a ne pas pouvoir faire un deuxieme sacrifice et ne pas pouvoir jouer sa carte.
 // Mettre en place un reset de quelque seconde pour que le joueur puisse retirer ca carte si il se rend compte qu'il a fait une erreur.

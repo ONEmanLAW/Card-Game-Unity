@@ -27,7 +27,8 @@ public class GameManager : MonoBehaviour
     public int sacrifices = 0;
     public int nbActions = 0;
     public bool gameEnded = false;
-    
+    public bool sacrificeSummonUsedThisTurn = false;
+
     public void HitComputer(int atk) {
         computerLife -= atk;
         computerLifeText.text = computerLife.ToString();
