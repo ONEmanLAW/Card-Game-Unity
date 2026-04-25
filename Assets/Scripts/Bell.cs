@@ -34,6 +34,7 @@ public class Bell : MonoBehaviour
     public void ChangeGamePhase() {
 
         AudioManager.Instance.PlaySFX(1); // bell
+        GameManager.Instance.nbActions = 0;
 
         if (GameManager.Instance.isPlayerTurn)
         {

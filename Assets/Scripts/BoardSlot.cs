@@ -32,6 +32,7 @@ public class BoardSlot : MonoBehaviour
         if (GameManager.Instance == null) return;
         if (Board.Instance == null) return;
         if (GameManager.Instance.selectedCard == null) return;
+        if (GameManager.Instance.nbActions >= 2) return;
 
         //AudioManager.Instance.PlaySFX(1); // TODO : ajouter un son de pose de carte
 
@@ -84,6 +85,8 @@ public class BoardSlot : MonoBehaviour
     private void PlayCardOnSlot(GameObject card)
     {
         hasCard = true;
+
+        GameManager.Instance.nbActions++;
 
         iTween.MoveTo(card, transform.position, .5f);
         iTween.RotateTo(card, transform.rotation.eulerAngles, .25f);

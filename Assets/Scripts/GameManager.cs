@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TMP_Text computerLifeText;
     [SerializeField] TMP_Text finalText;
     public int sacrifices = 0;
+    public int nbActions = 0;
     public bool gameEnded = false;
     
     public void HitComputer(int atk) {

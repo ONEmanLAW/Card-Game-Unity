@@ -40,6 +40,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseUp() {
 
+        if (GameManager.Instance.nbActions >= 2) return;
         AudioManager.Instance.PlaySFX(0); // hoverCard
         if (selected) return;
         selected = true;
