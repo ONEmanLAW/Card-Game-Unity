@@ -38,13 +38,13 @@ public class BoardSlot : MonoBehaviour
 
         if (selectedCardComponent == null)
         {
-            Debug.LogError("L'objet sélectionné n'a pas de composant Card.", selectedCard);
+            Debug.LogError("L'objet selected n'a pas de composant Card.", selectedCard);
             return;
         }
 
         if (selectedCardComponent.cardObject == null)
         {
-            Debug.LogError("cardObject est null sur cette carte.", selectedCard);
+            Debug.LogError("cardObject est null sur la carte.", selectedCard);
             return;
         }
 
