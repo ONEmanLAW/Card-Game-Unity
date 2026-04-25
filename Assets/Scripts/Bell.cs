@@ -26,6 +26,7 @@ public class Bell : MonoBehaviour
     {
         if (GameManager.Instance == null) return;
         if (!GameManager.Instance.isPlayerTurn) return;
+        if (GameManager.Instance.gameEnded) return; // no bell sound
 
         ChangeGamePhase();
     }

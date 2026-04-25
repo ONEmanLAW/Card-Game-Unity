@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -22,13 +23,17 @@ public class GameManager : MonoBehaviour
     public int computerLife = 10;
     [SerializeField] TMP_Text playerLifeText;
     [SerializeField] TMP_Text computerLifeText;
+    [SerializeField] TMP_Text finalText;
     public int sacrifices = 0;
-
+    public bool gameEnded = false;
+    
     public void HitComputer(int atk) {
         computerLife -= atk;
         computerLifeText.text = computerLife.ToString();
         if (computerLife <= 0) {
-            // Fin
+            gameEnded = true;
+            finalText.text = "You Win!";
+            Invoke("RestartGame", 2);
         }
     }
 
@@ -36,7 +41,13 @@ public class GameManager : MonoBehaviour
         playerLife -= atk;
         playerLifeText.text = playerLife.ToString();
         if (playerLife <= 0) {
-            // Fin
+            gameEnded = true;
+            finalText.text = "You lose!";
+            Invoke("RestartGame", 2);
         }
+    }
+
+    public void RestartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
